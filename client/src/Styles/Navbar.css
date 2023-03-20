@@ -22,10 +22,11 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
 }
 .navbar_full ul li{
     list-style: none;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 .navbar_full ul li a{
     text-decoration: none;
@@ -46,4 +47,107 @@ body{
     text-decoration: none;
     letter-spacing: 2px;
 }
+  .navbar_full_ipad{
+    display: none;
+}
 
+@media screen and (max-width:1000px) {
+    .navbar_full{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 30px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+    }
+    .navbar_full ul{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    
+    }
+    .navbar_full ul li{
+        list-style: none;
+        margin-left: 5px;
+    }
+    .navbar_full ul li a{
+        text-decoration: none;
+        padding: 6px 15px;
+        color: #fff;
+    }
+    .navbar_full ul li a:hover{
+        text-decoration: none;
+        padding: 6px 15px;
+        color: #2b1055;
+        background: #fff;
+        border-radius: 20px;
+    }
+    .navbar_full .logo{
+        color: #fff;
+        font-size: 2rem;
+        font-weight: bolder;
+        text-decoration: none;
+        letter-spacing: 2px;
+    }
+    .navbar_full_ipad{
+        display: none;
+    }
+    
+}
+@media screen and (max-width:600px) {
+    .navbar_full_ipad{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 30px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+    }
+    .navbar_full_ipad ul{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .navbar_full ul li{
+        list-style: none;
+        margin-left: 5px;
+    }
+    .navbar_full_ipad ul li a{
+        text-decoration: none;
+        padding: 6px 15px;
+        color: #fff;
+    }
+    .nav_ipad{
+        color: #fff;
+        border-radius: 20px;
+        margin-top: 20px;
+    }
+    .navbar_full_ipad ul li a:hover{
+        text-decoration: none;
+        padding: 6px 15px;
+        color: #2b1055;
+        background: #fff;
+        border-radius: 20px;
+    }
+    .navbar_full_ipad .logo{
+        color: #fff;
+        font-size: 2rem;
+        left: 0;
+        font-weight: bolder;
+        text-decoration: none;
+        letter-spacing: 1px;
+    }
+    .navbar_full{
+        display: none;
+    }
+    
+    
+    
+}
