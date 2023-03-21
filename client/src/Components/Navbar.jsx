@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../Styles/Navbar.css";
+import LoginForm from "./LoginForm";
 
 const NavbarMain = () => {
+  const [modalShow, setModalShow] = React.useState(false);
+
   return (
     <>
       <nav className="navbar_full">
@@ -24,7 +24,7 @@ const NavbarMain = () => {
             <Link to="/events">Events</Link>
           </li>
           <li>
-            <Link to="/">Login</Link>
+            <Link onClick={() => setModalShow(true)}>Login</Link>
           </li>
         </ul>
       </nav>
@@ -40,19 +40,27 @@ const NavbarMain = () => {
               title="MENU"
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
+              <NavDropdown.Item>
+                {" "}
+                <Link to="/explore">Explore</Link>
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/blogs">Blogs</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                {" "}
+                <Link to="/events">Events</Link>
+              </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
+              <NavDropdown.Item>
+                <Link onClick={() => setModalShow(true)}>Login</Link>
               </NavDropdown.Item>
             </NavDropdown>
           </li>
         </ul>
       </nav>
+      <LoginForm  show={modalShow}
+        onHide={() => setModalShow(false)}/>
     </>
   );
 };
