@@ -5,8 +5,13 @@ import "aos/dist/aos.css";
 import "../Styles/Home.css";
 import Card from "react-bootstrap/Card";
 import Footer from "../Components/Footer";
+import ChooseLocation from "../Components/ChooseLocation";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const [modalShow, setModalShow] = React.useState(false);
+  const navigate=useNavigate();
+
   const discoverData = [
     {
       img: "https://campmonk.com/_next/image?url=https%3A%2F%2Fcampmonk.s3.ap-south-1.amazonaws.com%2Ffeature-groups%2Fmedium-a8d8d818-d97e-477a-9e49-a449750f8fb2.webp&w=1920&q=75",
@@ -56,7 +61,11 @@ const Home = () => {
       title:"Pindrop Bannerghatta",
       desc:"250 onwards"
     }
-  ]
+  ];
+
+  const handleNavigate=(el)=>{
+      navigate(`/explore/type/${el}`)
+  }
 
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -77,7 +86,7 @@ const Home = () => {
           alt="moon"
         />
         <h2 className="logo_home">E-CAMP</h2>
-        <button className="choose_location">Choose Location</button>
+        <button className="choose_location" onClick={() => setModalShow(true)}>Choose Location</button>
         <img
           src="https://i.postimg.cc/gcvz1XwH/mountains-behind.png"
           className="mountains"
@@ -129,7 +138,7 @@ const Home = () => {
         {discoverData.map((el) => {
           return (
             <div className="card_discover">
-              <Card style={{ width: "100%", height: "100%" }}>
+              <Card style={{ width: "100%", height: "100%" }} onClick={()=>{handleNavigate(el.title)}}>
                 <Card.Img variant="top" src={el.img} alt={el.title} />
                 <Card.Body>
                   <Card.Title
@@ -187,6 +196,8 @@ const Home = () => {
         </div>
       </div>
       <Footer/>
+      <ChooseLocation  show={modalShow}
+        onHide={() => setModalShow(false)}/>
     </>
   );
 };

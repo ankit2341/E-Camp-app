@@ -7,112 +7,119 @@ body{
    background: linear-gradient(#2b1055,#7597de);
    min-height: 100vh;
 }
-.navbar_full{
-    position: absolute;
+.navbar_full_subnav{
+    position: fixed;
+    background: #2b1055;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 30px 100px;
+    padding: 10px 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 100;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 10000;
 }
-.navbar_full ul{
+.navbar_full_subnav ul{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
 }
-.navbar_full ul li{
+.navbar_full_subnav ul li{
     list-style: none;
     margin-left: 10px;
 }
-.navbar_full ul li a{
+.navbar_full_subnav ul li a{
     text-decoration: none;
     padding: 6px 15px;
     color: #fff;
 }
-.navbar_full ul li a:hover{
+.navbar_full_subnav ul li a:hover{
     text-decoration: none;
     padding: 6px 15px;
     color: #2b1055;
     background: #fff;
     border-radius: 20px;
 }
-.navbar_full .logo{
+.navbar_full_subnav .logo_subnav{
     color: #fff;
     font-size: 2rem;
     font-weight: bolder;
     text-decoration: none;
     letter-spacing: 2px;
 }
-  .navbar_full_ipad{
+  .navbar_full_ipad_subnav{
     display: none;
 }
 .choose_location_btn_modal{
     color: #2b1055;
 }
 @media screen and (max-width:1000px) {
-    .navbar_full{
-        position: absolute;
+    .navbar_full_subnav{
+        position: fixed;
+        background: #2b1055;
         top: 0;
         left: 0;
         width: 100%;
-        padding: 30px 20px;
+        padding: 10px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        z-index: 100;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        z-index: 10000;
     }
-    .navbar_full ul{
+    .navbar_full_subnav ul{
         display: flex;
         justify-content: center;
         align-items: center;
         margin-top: 10px;
     
     }
-    .navbar_full ul li{
+    .navbar_full_subnav ul li{
         list-style: none;
         margin-left: 5px;
     }
-    .navbar_full ul li a{
+    .navbar_full_subnav ul li a{
         text-decoration: none;
         padding: 6px 15px;
         color: #fff;
     }
-    .navbar_full ul li a:hover{
+    .navbar_full_subnav ul li a:hover{
         text-decoration: none;
         padding: 6px 15px;
         color: #2b1055;
         background: #fff;
         border-radius: 20px;
     }
-    .navbar_full .logo{
+    .navbar_full_subnav .logo_subnav{
         color: #fff;
         font-size: 2rem;
         font-weight: bolder;
         text-decoration: none;
         letter-spacing: 2px;
     }
-    .navbar_full_ipad{
+    .navbar_full_ipad_subnav{
         display: none;
     }
     
 }
 @media screen and (max-width:600px) {
-    .navbar_full_ipad{
-        position: absolute;
+    .navbar_full_ipad_subnav{
+        position: fixed;
+        background: #2b1055;
         top: 0;
         left: 0;
         width: 100%;
-        padding: 30px 5%;
+        padding: 10px 5%;
+        color: #fff;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        z-index: 100;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        z-index: 10000;
     }
-    .navbar_full_ipad ul{
+    .navbar_full_ipad_subnav ul{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -121,7 +128,7 @@ body{
         list-style: none;
         margin-left: 5px;
     }
-    .navbar_full_ipad ul li a{
+    .navbar_full_ipad_subnav ul li a{
         text-decoration: none;
         padding: 6px 15px;
         color: #fff;
@@ -131,14 +138,14 @@ body{
         border-radius: 20px;
         margin-top: 20px;
     }
-    .navbar_full_ipad ul li a:hover{
+    .navbar_full_ipad_subnav ul li a:hover{
         text-decoration: none;
         padding: 6px 15px;
         color: #2b1055;
         background: #fff;
         border-radius: 20px;
     }
-    .navbar_full_ipad .logo{
+    .navbar_full_ipad_subnav .logo_subnav{
         color: #fff;
         font-size: 2rem;
         left: 0;
@@ -146,7 +153,7 @@ body{
         text-decoration: none;
         letter-spacing: 1px;
     }
-    .navbar_full{
+    .navbar_full_subnav{
         display: none;
     }
     

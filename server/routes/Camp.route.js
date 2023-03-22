@@ -47,6 +47,67 @@ campRouter.get("/type/:discover", async (req, res) => {
   }
 });
 
+campRouter.get("/state/nods", async (req, res) => {
+  try {
+    let alldata = [];
+
+    let state = [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Chhattisgarh",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu and Kashmir",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Telangana",
+      "Tripura",
+      "Uttarakhand",
+      "Uttar Pradesh",
+      "West Bengal",
+      "Andaman and Nicobar Islands",
+      "Chandigarh",
+      "Dadra and Nagar Haveli",
+      "Daman and Diu",
+      "Delhi",
+      "Lakshadweep",
+      "Puducherry",
+    ];
+
+    const camps = await CampModel.find();
+
+    for (let i = 0; i < camps.length; i++) {
+      if (state.includes(camps[i].state)) {
+        if (alldata.includes(camps[i].state)) {
+          continue;
+        } else {
+          alldata.push(camps[i].state);
+        }
+      }
+    }
+
+    res.status(200).send(alldata);
+  } catch (err) {
+    res.status(404).send({ msg: "error connecting to api" });
+  }
+});
+
 module.exports = {
   campRouter,
 };

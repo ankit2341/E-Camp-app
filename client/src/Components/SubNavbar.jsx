@@ -1,16 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import "../Styles/Navbar.css";
+import "../Styles/subnavbar.css";
 import LoginForm from "./LoginForm";
 
-const NavbarMain = () => {
+const SubNavbar = () => {
   const [modalShow, setModalShow] = React.useState(false);
 
   return (
     <>
-      <nav className="navbar_full">
-        <Link to="/" className="logo">
+      <nav className="navbar_full_subnav">
+        <Link to="/" className="logo_subnav">
           ECamp
         </Link>
         <ul>
@@ -28,14 +28,14 @@ const NavbarMain = () => {
           </li>
         </ul>
       </nav>
-      <nav className="navbar_full_ipad">
-        <Link to="/" className="logo">
+      <nav className="navbar_full_ipad_subnav">
+        <Link to="/" className="logo_subnav">
           ECamp
         </Link>
         <ul>
           <li>
             <NavDropdown
-              className="nav_ipad"
+              className="nav_ipad_subnav"
               id="nav-dropdown-dark-example"
               title="MENU"
               menuVariant="dark"
@@ -66,4 +66,4 @@ const NavbarMain = () => {
   );
 };
 
-export default NavbarMain;
+export {SubNavbar}
