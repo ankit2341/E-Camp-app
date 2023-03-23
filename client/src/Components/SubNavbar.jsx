@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../Styles/subnavbar.css";
 import LoginForm from "./LoginForm";
+import ChooseLocation from "./ChooseLocation";
 
 const SubNavbar = () => {
   const [modalShow, setModalShow] = React.useState(false);
+  const [modalShowlocation, setModalShowlocation] = useState(false);
 
   return (
     <>
@@ -25,6 +27,9 @@ const SubNavbar = () => {
           </li>
           <li>
             <Link onClick={() => setModalShow(true)}>Login</Link>
+          </li>
+          <li>
+            <Link onClick={() => setModalShowlocation(true)}>Choose location</Link>
           </li>
         </ul>
       </nav>
@@ -53,17 +58,24 @@ const SubNavbar = () => {
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item>
+                <Link onClick={() => setModalShowlocation(true)}>
+                  Choose Location
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
                 <Link onClick={() => setModalShow(true)}>Login</Link>
               </NavDropdown.Item>
             </NavDropdown>
           </li>
         </ul>
       </nav>
-      <LoginForm  show={modalShow}
-        onHide={() => setModalShow(false)}/>
-        
+      <LoginForm show={modalShow} onHide={() => setModalShow(false)} />
+      <ChooseLocation
+        show={modalShowlocation}
+        onHide={() => setModalShowlocation(false)}
+      />
     </>
   );
 };
 
-export {SubNavbar}
+export { SubNavbar };

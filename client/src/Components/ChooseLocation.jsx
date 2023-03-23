@@ -18,7 +18,8 @@ const ChooseLocation = (props) => {
     },[]);
 
     const handleNavigate=(el)=>{
-          navigate(`/explore/${el}`)
+          navigate(`/explore/${el}`);
+          window.location.reload()
     }
 
 

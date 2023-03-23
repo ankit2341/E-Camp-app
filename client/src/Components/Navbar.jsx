@@ -28,7 +28,7 @@ const NavbarMain = () => {
           </li>
         </ul>
       </nav>
-      <nav className="navbar_full_ipad">
+      <nav className="navbar_full_ipad" >
         <Link to="/" className="logo">
           ECamp
         </Link>

@@ -6,11 +6,15 @@ import "../Styles/Home.css";
 import Card from "react-bootstrap/Card";
 import Footer from "../Components/Footer";
 import ChooseLocation from "../Components/ChooseLocation";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { SubNavbar } from "../Components/SubNavbar";
+import LoginForm from "../Components/LoginForm";
 
 const Home = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const navigate=useNavigate();
+  const [active,setActive]=useState(false);
+  const [modalShowlogin,setModalShowlogin]=useState(false);
 
   const discoverData = [
     {
@@ -66,6 +70,29 @@ const Home = () => {
   const handleNavigate=(el)=>{
       navigate(`/explore/type/${el}`)
   }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleScroll = () => {
+
+    const scrool = window.scrollY;
+    console.log(scrool)
+    if(scrool>150){
+       setActive(true)
+    }
+    else if(scrool>2000){
+       setActive(false)
+    }
+    else{
+      setActive(false)
+    }
+  };
 
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -198,6 +225,13 @@ const Home = () => {
       <Footer/>
       <ChooseLocation  show={modalShow}
         onHide={() => setModalShow(false)}/>
+        <LoginForm  show={modalShowlogin}
+        onHide={() => setModalShowlogin(false)}/>
+      <div  className={active?"fixed_choose_location_under":"fixed_choose_location_under_none"}>
+       <button className="fixed_under_nav_explore"> <Link style={{textDecoration:"none",color:"#fff"}} to="/explore">Explore</Link></button>
+        <button className="fixed_under_nav_explore" onClick={() => setModalShowlogin(true)}>Login</button>
+        <button className="fixed_under_nav_explore" onClick={() => setModalShow(true)}>Location</button>
+      </div>
     </>
   );
 };

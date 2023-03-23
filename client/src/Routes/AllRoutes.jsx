@@ -2,6 +2,7 @@ import React from 'react'
 import { Routes,Route } from 'react-router-dom'
 import Admin from '../Pages/Admin'
 import Blogs from '../Pages/Blogs'
+import CampDetails from '../Pages/CampDetails'
 import Events from '../Pages/Events'
 import Explore from '../Pages/Explore'
 import ExploreDiscover from '../Pages/ExploreDiscover'
@@ -16,6 +17,7 @@ const AllRoutes = () => {
         <Route path='/explore' element={<Explore/>}></Route>
         <Route path='/explore/:state' element={<ExploreStates/>}></Route>
         <Route path='/explore/type/:discover' element={<ExploreDiscover/>}></Route>
+        <Route path='/:prod_id' element={<CampDetails/>} ></Route>
         <Route path='/events' element={<Events/>}></Route>
         <Route path='/blogs' element={<Blogs/>}></Route>
         <Route path='/admin' element={<Admin/>}></Route>

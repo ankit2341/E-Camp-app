@@ -4,20 +4,44 @@ const { CampModel } = require("../model/Camps.model");
 const campRouter = express.Router();
 
 campRouter.get("/", async (req, res) => {
+  const {page}=req.query;
   try {
-    const camps = await CampModel.find();
+    if(page!=undefined){
+      if(page==1){
+        const camps = await CampModel.find().skip(0).limit(8);
     res.status(200).send(camps);
+      }
+      else{
+        const camps = await CampModel.find().skip((page-1)*8).limit(8);
+        res.status(200).send(camps);
+      }
+  } 
+  else{
+    res.status(200).send({"msg":"page mising"})
+  }
   } catch (err) {
     res.status(404).send({ msg: "error connecting to api" });
   }
 });
 
 campRouter.get("/:state", async (req, res) => {
+  const { page } = req.query;
   try {
-    const state = req.params.state;
+    if (page != undefined) {
+      const state = req.params.state;
 
-    const camps = await CampModel.find({ state: state });
-    res.status(200).send(camps);
+      if (page == 1) {
+        const camps = await CampModel.find({ state: state }).skip(0).limit(8);
+        res.status(200).send(camps);
+      } else if (page > 1) {
+        const camps = await CampModel.find({ state: state })
+          .skip((page-1) * 8)
+          .limit(8);
+        res.status(200).send(camps);
+      }
+    } else {
+      res.status(200).send({ msg: "page mising" });
+    }
   } catch (err) {
     res.status(404).send({ msg: "error connecting to api" });
   }
@@ -37,11 +61,24 @@ campRouter.post("/camps", async (req, res) => {
 });
 
 campRouter.get("/type/:discover", async (req, res) => {
+  const { page } = req.query;
   try {
-    const discover = req.params.discover;
-
-    const camps = await CampModel.find({ discover: discover });
-    res.status(200).send(camps);
+    if (page != undefined) {
+      const discover = req.params.discover;
+      if (page == 1) {
+        const camps = await CampModel.find({ discover: discover })
+          .skip(0)
+          .limit(8);
+        res.status(200).send(camps);
+      } else if (page > 1) {
+        const camps = await CampModel.find({ discover: discover })
+          .skip((page-1) * 8)
+          .limit(8);
+        res.status(200).send(camps);
+      }
+    } else {
+      res.status(200).send({ msg: "page mising" });
+    }
   } catch (err) {
     res.status(404).send({ msg: "error connecting to api" });
   }
@@ -107,6 +144,17 @@ campRouter.get("/state/nods", async (req, res) => {
     res.status(404).send({ msg: "error connecting to api" });
   }
 });
+
+campRouter.get("/prod/:id",async(req,res)=>{
+  const id=req.params.id
+  try{
+     const camp=await CampModel.find({_id:id});
+     res.status(200).send(camp)
+  }
+  catch(err){
+    res.status(404).send({"msg":"404 error"})
+  }
+})
 
 module.exports = {
   campRouter,
