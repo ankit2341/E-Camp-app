@@ -60,6 +60,30 @@ campRouter.post("/camps", async (req, res) => {
   }
 });
 
+campRouter.delete("/:id",async(req,res)=>{
+  const id=req.params.id;
+  try{
+      await CampModel.findByIdAndDelete({_id:id});
+      res.status(200).send({"msg":"deleted"})
+  }
+  catch(err){
+    res.status(404).send({"msg":"404 eror"})
+  }
+});
+
+campRouter.patch("/:id",async(req,res)=>{
+  const id=req.params.id;
+  const payload=req.body;
+
+  try{
+      await CampModel.findByIdAndUpdate({_id:id},payload);
+      res.status(200).send({"msg":"updated"})
+  }
+  catch(err){
+    res.status(404).send({"msg":"404 eror"})
+  }
+})
+
 campRouter.get("/type/:discover", async (req, res) => {
   const { page } = req.query;
   try {

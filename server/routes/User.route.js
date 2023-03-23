@@ -143,6 +143,19 @@ userRouter.post("/googlelogin", async (req, res) => {
   }
 });
 
+userRouter.patch("/:id",async(req,res)=>{
+  const id=req.params.id;
+  const payload=req.body;
+
+  try{
+      await UserModel.findByIdAndUpdate({_id:id},payload);
+      res.status(200).send({"msg":"updated"})
+  }
+  catch(err){
+    res.status(404).send({"msg":"404 eror"})
+  }
+})
+
 userRouter.delete("/:id", async (req, res) => {
   const id = req.params.id;
   try {
