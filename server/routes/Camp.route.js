@@ -1,4 +1,5 @@
 const express = require("express");
+const { auth } = require("../middleware/auth");
 
 const { CampModel } = require("../model/Camps.model");
 const campRouter = express.Router();
@@ -46,43 +47,6 @@ campRouter.get("/:state", async (req, res) => {
     res.status(404).send({ msg: "error connecting to api" });
   }
 });
-
-campRouter.post("/camps", async (req, res) => {
-  try {
-    const data = req.body;
-
-    const camp = new CampModel(data);
-    await camp.save();
-
-    res.send({ msg: "added" });
-  } catch (err) {
-    res.send({ msg: "failsed" });
-  }
-});
-
-campRouter.delete("/:id",async(req,res)=>{
-  const id=req.params.id;
-  try{
-      await CampModel.findByIdAndDelete({_id:id});
-      res.status(200).send({"msg":"deleted"})
-  }
-  catch(err){
-    res.status(404).send({"msg":"404 eror"})
-  }
-});
-
-campRouter.patch("/:id",async(req,res)=>{
-  const id=req.params.id;
-  const payload=req.body;
-
-  try{
-      await CampModel.findByIdAndUpdate({_id:id},payload);
-      res.status(200).send({"msg":"updated"})
-  }
-  catch(err){
-    res.status(404).send({"msg":"404 eror"})
-  }
-})
 
 campRouter.get("/type/:discover", async (req, res) => {
   const { page } = req.query;
@@ -178,7 +142,47 @@ campRouter.get("/prod/:id",async(req,res)=>{
   catch(err){
     res.status(404).send({"msg":"404 error"})
   }
+});
+
+campRouter.use(auth);
+
+campRouter.post("/camps", async (req, res) => {
+  try {
+    const data = req.body;
+
+    const camp = new CampModel(data);
+    await camp.save();
+
+    res.send({ msg: "added" });
+  } catch (err) {
+    res.send({ msg: "failsed" });
+  }
+});
+
+campRouter.delete("/:id",async(req,res)=>{
+  const id=req.params.id;
+  try{
+      await CampModel.findByIdAndDelete({_id:id});
+      res.status(200).send({"msg":"deleted"})
+  }
+  catch(err){
+    res.status(404).send({"msg":"404 eror"})
+  }
+});
+
+campRouter.patch("/:id",async(req,res)=>{
+  const id=req.params.id;
+  const payload=req.body;
+
+  try{
+      await CampModel.findByIdAndUpdate({_id:id},payload);
+      res.status(200).send({"msg":"updated"})
+  }
+  catch(err){
+    res.status(404).send({"msg":"404 eror"})
+  }
 })
+
 
 module.exports = {
   campRouter,

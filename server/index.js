@@ -3,11 +3,15 @@ const {campRouter}=require("./routes/Camp.route");
 const {userRouter}=require("./routes/User.route");
 const cors=require("cors");
 const express=require("express");
+const { bookingRouter } = require("./routes/Bookings.route");
+const { eventsRouter } = require("./routes/Events.route");
 const app=express();
 app.use(express.json());
 app.use(cors({origin:"*"}));
 app.use("/camps",campRouter);
 app.use("/users",userRouter);
+app.use("/bookings",bookingRouter);
+app.use("/events",eventsRouter);
 
 app.get("/",async(req,res)=>{
     try{

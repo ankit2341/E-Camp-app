@@ -6,11 +6,14 @@ import UsersTable from "../Components/admin/UsersTable";
 import { Campstable } from "../Components/admin/CampsTable";
 import { Link } from "react-router-dom";
 import Footer from "../Components/Footer";
+import { Eventstable } from "../Components/admin/EventsTable";
+import BookingsTable from "../Components/admin/BookingsTable";
 
 const Admin = () => {
   const [user, setuser] = useState([]);
   const [camps, setCamps] = useState([]);
   const [events, setEvents] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const [Statistics, setSTATS] = useState([]);
   const [campsPage, setCampspage] = useState(1);
   const [active, setActive] = useState(false);
@@ -25,6 +28,32 @@ const Admin = () => {
       })
       .catch((err) => {
         setuser([]);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}events`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setEvents(res);
+      })
+      .catch((err) => {
+        setEvents([]);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}bookings`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setBookings(res);
+      })
+      .catch((err) => {
+        setBookings([]);
       });
   }, []);
 
@@ -65,38 +94,88 @@ const Admin = () => {
       </div>
       <div
         id="mySidenav"
-        style={active ? { width: "250px", zIndex: "11111" } : { width: "0px" }}
+        style={active ? { width: "250px", zIndex: "11111",paddingBottom:"10px" } : { width: "0px" }}
         className="sidenav"
       >
         <a to="#" className="closebtn" onClick={closeNav}>
           &times;
         </a>
-        <a href="#users_table" onClick={closeNav}>Users data</a>
-        <a href="#camps_table" onClick={closeNav}>Camps data</a>
-        <a href="#event_table" onClick={closeNav}>Events data</a>
-        <a href="#statistics" onClick={closeNav}>Statistics</a>
+        <a href="#users_table" onClick={closeNav}>
+          Users data
+        </a>
+        <a href="#camps_table" onClick={closeNav}>
+          Camps data
+        </a>
+        <a href="#event_table" onClick={closeNav}>
+          Events data
+        </a>
+        <a href="#bookings_table" onClick={closeNav}>
+          Bookings data
+        </a>
+        <a href="#statistics" onClick={closeNav}>
+          Statistics
+        </a>
       </div>
       <div className="admin_panel_main">
         <div className="admin_panel_main_subdiv">
           <section
-            style={{ width: "100%", height: "0px", padding: "60px 60px",zIndex:"0",color:"#fff",fontSize:"larger",background:"#2b1055" }}
+            style={{
+              width: "100%",
+              height: "0px",
+              padding: "60px 60px",
+              zIndex: "0",
+              color: "#fff",
+              fontSize: "larger",
+              background: "#2b1055",
+            }}
             id="users_table"
-          > USERS SECTION</section>
+          >
+            {" "}
+            USERS SECTION
+          </section>
           <h2
             style={{ color: "#000", marginBottom: "20px", marginTop: "20px" }}
           >
             Users table
           </h2>
           <div className="users_table">
-            {user.length > 0 ? <UsersTable data={user} /> : "failed to fetch"}
+            {user.length > 0 ? <UsersTable data={user} /> :   <div
+                style={{
+                  width: "100%",
+                  marginBottom: "50px",
+                  textAlign: "center",
+                  border: "1px solid gray",
+                }}
+              >
+                <h3 style={{ color: "#000" }}>No data found</h3>
+              </div>}
           </div>
           <section
-            style={{ width: "100%", height: "0px", padding: "60px 60px",zIndex:"0",color:"#fff",fontSize:"larger",background:"#2b1055" }}
+            style={{
+              width: "100%",
+              height: "0px",
+              padding: "60px 60px",
+              zIndex: "0",
+              color: "#fff",
+              fontSize: "larger",
+              background: "#2b1055",
+            }}
             id="camps_table"
-          >CAMPS SECTION</section>
-          <h2 style={{ color: "#000" }} >Camps table</h2>
-          <div className="camps_table" >
-            {camps.length > 0 ? <Campstable data={camps} /> : "failed to fetch"}
+          >
+            CAMPS SECTION
+          </section>
+          <h2 style={{ color: "#000", marginBottom: "20px", marginTop: "20px" }}>Camps table</h2>
+          <div className="camps_table">
+            {camps.length > 0 ? <Campstable data={camps} /> :   <div
+                style={{
+                  width: "100%",
+                  marginBottom: "50px",
+                  textAlign: "center",
+                  border: "1px solid gray",
+                }}
+              >
+                <h3 style={{ color: "#000" }}>No data found</h3>
+              </div>}
           </div>
           <div className="pagination">
             {campsPage > 1 ? (
@@ -129,9 +208,76 @@ const Admin = () => {
               </button>
             )}
           </div>
+
+          {/* ----------------------------------events section ---------------------------------------  */}
+          <section
+            style={{
+              width: "100%",
+              height: "0px",
+              padding: "60px 60px",
+              zIndex: "0",
+              color: "#fff",
+              fontSize: "larger",
+              background: "#2b1055",
+            }}
+            id="event_table"
+          >
+            EVENTS SECTION
+          </section>
+          <h2 style={{ color: "#000", marginBottom: "20px", marginTop: "20px" }}>Events table</h2>
+          <div className="events_table">
+            {events.length > 0 ? (
+              <Eventstable data={events} />
+            ) : (
+              <div
+              style={{
+                width: "100%",
+                marginBottom: "50px",
+                textAlign: "center",
+                border: "1px solid gray",
+              }}
+            >
+              <h3 style={{ color: "#000" }}>No data found</h3>
+            </div>
+            )}
+          </div>
+
+          {/* -------------------------booking section --------------------------------------------- */}
+
+          <section
+            style={{
+              width: "100%",
+              height: "0px",
+              padding: "60px 60px",
+              zIndex: "0",
+              color: "#fff",
+              fontSize: "larger",
+              background: "#2b1055",
+            }}
+            id="bookings_table"
+          >
+            BOKKINGS SECTION
+          </section>
+          <h2 style={{ color: "#000", marginBottom: "20px", marginTop: "20px" }}>Bookings data</h2>
+          <div className="camps_table">
+            {bookings.length > 0 ? (
+              <BookingsTable data={bookings} />
+            ) : (
+              <div
+                style={{
+                  width: "100%",
+                  marginBottom: "50px",
+                  textAlign: "center",
+                  border: "1px solid gray",
+                }}
+              >
+                <h3 style={{ color: "#000" }}>No data found</h3>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

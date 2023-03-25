@@ -4,6 +4,7 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { UserModel } = require("../model/Users.model");
 const jwt_decode = require("jwt-decode");
+const { auth } = require("../middleware/auth");
 
 const userRouter = express.Router();
 
@@ -16,40 +17,28 @@ userRouter.get("/", async (req, res) => {
   }
 });
 
-userRouter.post("/add", async (req, res) => {
-  const data = req.body;
-  try {
-    const user = new UserModel(data);
-    await user.save();
-    res.status(200).send({ msg: "added" });
-  } catch (err) {
-    res.status(404).send({ msg: "404 error" });
-  }
-});
-
 userRouter.post("/register", async (req, res) => {
   const { username, email, password, role, avatar } = req.body;
   try {
-    const users=await UserModel.find({email});
-    if(users.length>0){
-       res.status(200).send({"msg":"already registered"})
-    }
-    else{
-        bcrypt.hash(password, 5, async (err, secured_pass) => {
-            if (err) {
-              res.status(404).send({ msg: "failed to register" });
-            } else {
-              const user = new UserModel({
-                username,
-                email,
-                password: secured_pass,
-                role,
-                avatar,
-              });
-              await user.save();
-              res.send({ msg: "registered" });
-            }
-          });  
+    const users = await UserModel.find({ email });
+    if (users.length > 0) {
+      res.status(200).send({ msg: "already registered" });
+    } else {
+      bcrypt.hash(password, 5, async (err, secured_pass) => {
+        if (err) {
+          res.status(404).send({ msg: "failed to register" });
+        } else {
+          const user = new UserModel({
+            username,
+            email,
+            password: secured_pass,
+            role,
+            avatar,
+          });
+          await user.save();
+          res.send({ msg: "registered" });
+        }
+      });
     }
   } catch (err) {
     res.status(404).send({ msg: "404 error" });
@@ -65,15 +54,13 @@ userRouter.post("/login", async (req, res) => {
       bcrypt.compare(password, hashed_pass, (err, result) => {
         if (result) {
           const token = jwt.sign({ course: "backend" }, process.env.secret);
-          res
-            .status(200)
-            .send({
-              msg: "logged in",
-              token: token,
-              username: user[0].username,
-              avatar:user[0].avatar,
-              id: user[0]._id,
-            });
+          res.status(200).send({
+            msg: "logged in",
+            token: token,
+            username: user[0].username,
+            avatar: user[0].avatar,
+            id: user[0]._id,
+          });
         } else {
           res.status(404).send({ msg: "wrongcred" });
         }
@@ -95,29 +82,28 @@ userRouter.post("/googlelogin", async (req, res) => {
     const user = await UserModel.find({ email });
     // console.log(user)
     if (user.length > 0) {
-       
-      const users = await UserModel.findByIdAndUpdate({_id:user[0]._id},{
-        username: decoded.name,
-        avatar: decoded.picture,
-      });
-      
+      const users = await UserModel.findByIdAndUpdate(
+        { _id: user[0]._id },
+        {
+          username: decoded.name,
+          avatar: decoded.picture,
+        }
+      );
+
       const token = jwt.sign({ course: "backend" }, process.env.secret);
-      res
-        .status(200)
-        .send({
-          msg: "logged in",
-          token: token,
-          username: user[0].username,
-          avatar:user[0].avatar,
-          id: user[0]._id,
-        });
+      res.status(200).send({
+        msg: "logged in",
+        token: token,
+        username: user[0].username,
+        avatar: user[0].avatar,
+        id: user[0]._id,
+      });
     } else {
-        let role;
-      if(decoded.email=="ankitpatil2341@gmail.com"){
-          role="Admin"
-      }
-      else{
-        role="Guest"
+      let role;
+      if (decoded.email == "ankitpatil2341@gmail.com") {
+        role = "Admin";
+      } else {
+        role = "Guest";
       }
       const newuser = new UserModel({
         username: decoded.name,
@@ -128,33 +114,43 @@ userRouter.post("/googlelogin", async (req, res) => {
       });
       await newuser.save();
       const token = jwt.sign({ course: "backend" }, process.env.secret);
-      res
-        .status(200)
-        .send({
-          msg: "logged in",
-          token: token,
-          username: user[0].username,
-          avatar:user[0].avatar,
-          id: user[0]._id,
-        });
+      res.status(200).send({
+        msg: "logged in",
+        token: token,
+        username: user[0].username,
+        avatar: user[0].avatar,
+        id: user[0]._id,
+      });
     }
   } catch (err) {
     res.status(404).send({ msg: "404 error" });
   }
 });
 
-userRouter.patch("/:id",async(req,res)=>{
-  const id=req.params.id;
-  const payload=req.body;
+userRouter.use(auth);
 
-  try{
-      await UserModel.findByIdAndUpdate({_id:id},payload);
-      res.status(200).send({"msg":"updated"})
+userRouter.post("/add", async (req, res) => {
+  const data = req.body;
+  try {
+    const user = new UserModel(data);
+    await user.save();
+    res.status(200).send({ msg: "added" });
+  } catch (err) {
+    res.status(404).send({ msg: "404 error" });
   }
-  catch(err){
-    res.status(404).send({"msg":"404 eror"})
+});
+
+userRouter.patch("/:id", async (req, res) => {
+  const id = req.params.id;
+  const payload = req.body;
+
+  try {
+    await UserModel.findByIdAndUpdate({ _id: id }, payload);
+    res.status(200).send({ msg: "updated" });
+  } catch (err) {
+    res.status(404).send({ msg: "404 eror" });
   }
-})
+});
 
 userRouter.delete("/:id", async (req, res) => {
   const id = req.params.id;
@@ -162,6 +158,20 @@ userRouter.delete("/:id", async (req, res) => {
     await UserModel.findByIdAndDelete({ _id: id });
     res.send({ msg: "user deleted" });
   } catch (err) {
+    res.status(404).send({ msg: "404 error" });
+  }
+});
+
+userRouter.get("/checkrole/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const user = await UserModel.find({ _id: id });
+    if (user[0].role == "Admin") {
+      res.status(200).send({ msg: "Welcome Admin" });
+    } else {
+      res.status(404).send({ msg: "Not Authorized" });
+    }
+  } catch (error) {
     res.status(404).send({ msg: "404 error" });
   }
 });

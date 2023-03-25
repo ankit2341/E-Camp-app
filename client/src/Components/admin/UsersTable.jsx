@@ -2,8 +2,11 @@ import React from 'react'
 import Table from 'react-bootstrap/Table';
 import { toast } from 'react-toastify';
 import swal from "sweetalert";
+import AddModal from './AddModal';
 
 const UsersTable = ({data}) => {
+    const token="";
+    const [modalShow, setModalShow] = React.useState(false);
 
     const handleDelete=(id)=>{
         swal({
@@ -18,7 +21,8 @@ const UsersTable = ({data}) => {
               fetch(`${process.env.REACT_APP_API_URL}users/${id}`,{
                 method:"DELETE",
                 headers:{
-                    "Content-type":"application/json"
+                    "Content-type":"application/json",
+                    "Authorization":token
                 }
               })
               .then((res)=>{
@@ -41,6 +45,10 @@ const UsersTable = ({data}) => {
     }
 
   return (
+    <>
+    <div style={{display:"flex",alignItems:"center",justifyContent:"right"}}>
+    <button style={{background:"#2b1055",color:"#fff",border:"none",width:"20%",height:"40px",marginBottom:"20px"}} onClick={() => setModalShow(true)}>Add User</button>
+    </div>
     <Table striped bordered hover responsive>
     <thead>
       <tr>
@@ -67,6 +75,9 @@ const UsersTable = ({data}) => {
         })}
     </tbody>
   </Table>
+   <AddModal user={true}  show={modalShow}
+   onHide={() => setModalShow(false)}/>
+</>
   )
 }
 
