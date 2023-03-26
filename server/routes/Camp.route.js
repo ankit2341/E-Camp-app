@@ -144,9 +144,9 @@ campRouter.get("/prod/:id",async(req,res)=>{
   }
 });
 
-campRouter.use(auth);
+// campRouter.use(auth);
 
-campRouter.post("/camps", async (req, res) => {
+campRouter.post("/", async (req, res) => {
   try {
     const data = req.body;
 
@@ -155,7 +155,7 @@ campRouter.post("/camps", async (req, res) => {
 
     res.send({ msg: "added" });
   } catch (err) {
-    res.send({ msg: "failsed" });
+    res.send({ msg: "failed" });
   }
 });
 

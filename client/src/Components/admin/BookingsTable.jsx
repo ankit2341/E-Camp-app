@@ -23,7 +23,7 @@ const BookingsTable = ({data}) => {
     <tbody>
         {data.map((el,index)=>{
             return(
-                <tr>
+                <tr key={el._id}>
                 <td>{index+1}</td>
                 <td>{el.user_id}</td>
                 <td>{el.username}</td>
@@ -31,8 +31,8 @@ const BookingsTable = ({data}) => {
                 <td>{el.booking_location}</td>
                 <td>{el.booking_status?"Done":"Pending"}</td>
                 <td>{el.booking_members.length}</td>
-                <td><ol>{el.booking_members.map((el)=>{
-                    return <li>{el.name}, {el.age}</li> 
+                <td><ol>{el.booking_members.map((member)=>{
+                    return <li key={member._id}>{member.name}, {member.age}</li> 
                 })}</ol></td>
               </tr>
             )

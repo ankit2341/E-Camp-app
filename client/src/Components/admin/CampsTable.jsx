@@ -33,9 +33,11 @@ const Campstable = ({data}) => {
                 return res.json();
               })
               .then((res)=>{
-                if(res.msg==="user deleted"){
-                    toast.success("User deleted form database!");
-                    window.location.reload();
+                if(res.msg==="deleted"){
+                    toast.success("Camp deleted form database!");
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 1500);
                 }
                 else{
                     toast.error("Failed to delete")
@@ -70,7 +72,7 @@ const Campstable = ({data}) => {
     <tbody>
         {data.map((el,index)=>{
             return(
-                <tr>
+                <tr key={el._id}>
                 <td>{index+1}</td>
                 <td><img style={{width:"50px",height:"50px"}} src={el.img} alt="avatar" /></td>
                 <td>{el.Bookings_name__1IKPG}</td>
@@ -85,7 +87,7 @@ const Campstable = ({data}) => {
         })}
     </tbody>
   </Table>
-  <AddModal camp={true}  show={modalShow}
+  <AddModal camp="true"  show={modalShow}
         onHide={() => setModalShow(false)}/>
   </>
   )

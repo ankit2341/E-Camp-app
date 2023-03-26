@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { toast } from "react-toastify";
 
 const AddModal = (props) => {
   const { camp, event, user } = props;
+  const [ImageUrl, setImageUrl] = useState("");
+  const [name, SetName] = useState("");
+  const [states, setStates] = useState("");
+  const [locationName, setLocation] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [perUnit, setPerUnit] = useState("");
+  const [desription, setDescrition] = useState("");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [role, setRole] = useState("");
+
+  const token = "";
   const state = [
     "Andhra Pradesh",
     "Arunachal Pradesh",
@@ -82,6 +96,141 @@ const AddModal = (props) => {
     },
   ];
 
+  const addCamp = () => {
+    if (
+      ImageUrl === "" ||
+      name === "" ||
+      states === "" ||
+      category === "" ||
+      locationName === "" ||
+      price === "" ||
+      perUnit === ""
+    ) {
+      toast.warn("Please fill all fields!");
+    } else {
+      const payload = {
+        url: "",
+        img: ImageUrl,
+        Bookings_name__1IKPG: name,
+        discover: category,
+        location: `${(locationName, states)}`,
+        state: states,
+        Bookings_price__YVqxb: `₹${price}`,
+        Bookings_person__3ao1H: perUnit,
+      };
+      fetch(`${process.env.REACT_APP_API_URL}camps`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          if (res.msg === "added") {
+            toast.success("Camp added to database!");
+            window.location.reload();
+          } else {
+            toast.error("Failed to Add");
+          }
+        })
+        .catch((err) => {
+          toast.error("Failed to Add");
+        });
+    }
+  };
+
+  const addEvent = () => {
+    if (
+      ImageUrl === "" ||
+      name === "" ||
+      states === "" ||
+      locationName === "" ||
+      price === "" ||
+      desription === ""
+    ) {
+      toast.warn("Please fill all fields!");
+    } else {
+      const payload = {
+        img: ImageUrl,
+        Bookings_name__1IKPG: name,
+        location: `${(locationName, states)}`,
+        Bookings_price__YVqxb: price,
+        description: desription,
+      };
+      fetch(`${process.env.REACT_APP_API_URL}events`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          if (res.msg === "event added") {
+            toast.success("Event added to database!");
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          } else {
+            toast.error("Failed to Add");
+          }
+        })
+        .catch((err) => {
+          toast.error("Failed to Add");
+        });
+    }
+  };
+  const addUser = () => {
+    if (
+      ImageUrl === "" ||
+      name === "" ||
+      pass === "" ||
+      email === "" ||
+      role===""
+    ) {
+      toast.warn("Please fill all fields!");
+    } else {
+      const payload = {
+        username:name,
+        email:email,
+        password:pass,
+        avatar:ImageUrl,
+        role:role
+      };
+      fetch(`${process.env.REACT_APP_API_URL}users/add`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          if (res.msg === "added") {
+            toast.success("User added to database!");
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          } else {
+            toast.error("Failed to Add");
+          }
+        })
+        .catch((err) => {
+          toast.error("Failed to Add");
+        });
+    }
+  };
+
   if (camp) {
     return (
       <Modal
@@ -103,6 +252,13 @@ const AddModal = (props) => {
             Add New Camp
           </Modal.Title>
         </Modal.Header>
+        <Modal.Body>
+          <img
+            src={ImageUrl}
+            style={{ width: "50%", height: "200px", marginLeft: "25%" }}
+            alt="Preview of entered url"
+          />
+        </Modal.Body>
         <Modal.Body
           style={{
             background: "#f9f9f9",
@@ -113,42 +269,87 @@ const AddModal = (props) => {
           <Form.Label>Image Url</Form.Label>
           <Form.Control
             placeholder="Image Url"
+            value={ImageUrl}
+            onChange={(e) => {
+              setImageUrl(e.target.value);
+            }}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
           <Form.Label>Name Of Camp</Form.Label>
           <Form.Control
             placeholder="Title Of Camp "
+            value={name}
+            onChange={(e) => {
+              SetName(e.target.value);
+            }}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
           <Form.Label>Select State</Form.Label>
-          <Form.Select aria-label="Default select example">
+          <Form.Select
+            value={states}
+            onChange={(e) => {
+              setStates(e.target.value);
+            }}
+            aria-label="Default select example"
+          >
+            <option value="">Select from below</option>
             {state.map((el) => {
-              return <option value={el}>{el}</option>;
+              return (
+                <option key={el} value={el}>
+                  {el}
+                </option>
+              );
             })}
           </Form.Select>
           <Form.Label>Enter Location</Form.Label>
           <Form.Control
             placeholder="Enter Location "
+            value={locationName}
+            onChange={(e) => {
+              setLocation(e.target.value);
+            }}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
           <Form.Label>Select Category</Form.Label>
-          <Form.Select aria-label="Default select example">
+          <Form.Select
+            aria-label="Default select example"
+            value={category}
+            onChange={(e) => {
+              setCategory(e.target.value);
+            }}
+          >
+            <option value="">Select from below</option>
             {discoverData.map((el) => {
-              return <option value={el.title}>{el.title}</option>;
+              return (
+                <option key={el.title} value={el.title}>
+                  {el.title}
+                </option>
+              );
             })}
           </Form.Select>
           <Form.Label>Price Of Camp</Form.Label>
           <Form.Control
             placeholder="Price Of Camp"
+            value={price}
+            onChange={(e) => {
+              setPrice(e.target.value);
+            }}
             aria-label="Username"
             type="number"
             aria-describedby="basic-addon1"
           />
           <Form.Label>Per (/ unit or / adult)</Form.Label>
-          <Form.Select aria-label="Default select example">
+          <Form.Select
+            value={perUnit}
+            onChange={(e) => {
+              setPerUnit(e.target.value);
+            }}
+            aria-label="Default select example"
+          >
+            <option value="">Select from below</option>
             <option value="/ unit">/ unit</option>
             <option value="/ adult">/ adult</option>
           </Form.Select>
@@ -164,7 +365,7 @@ const AddModal = (props) => {
               width: "100%",
               fontWeight: "bold",
             }}
-            onClick={props.onHide}
+            onClick={addCamp}
           >
             Add Camp
           </Button>
@@ -194,6 +395,13 @@ const AddModal = (props) => {
             Add New Event
           </Modal.Title>
         </Modal.Header>
+        <Modal.Body>
+          <img
+            src={ImageUrl}
+            style={{ width: "50%", height: "200px", marginLeft: "25%" }}
+            alt="Preview of entered url"
+          />
+        </Modal.Body>
         <Modal.Body
           style={{
             background: "#f9f9f9",
@@ -204,37 +412,67 @@ const AddModal = (props) => {
           <Form.Label>Image Url</Form.Label>
           <Form.Control
             placeholder="Image Url"
+            value={ImageUrl}
+            onChange={(e) => {
+              setImageUrl(e.target.value);
+            }}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
           <Form.Label>Name Of Camp</Form.Label>
           <Form.Control
             placeholder="Title Of Camp "
+            value={name}
+            onChange={(e) => {
+              SetName(e.target.value);
+            }}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
           <Form.Label>Select State</Form.Label>
-          <Form.Select aria-label="Default select example">
+          <Form.Select
+            value={states}
+            onChange={(e) => {
+              setStates(e.target.value);
+            }}
+            aria-label="Default select example"
+          >
             {state.map((el) => {
-              return <option value={el}>{el}</option>;
+              return (
+                <option key={el} value={el}>
+                  {el}
+                </option>
+              );
             })}
           </Form.Select>
           <Form.Label>Enter Location</Form.Label>
           <Form.Control
             placeholder="Enter Location "
+            value={locationName}
+            onChange={(e) => {
+              setLocation(e.target.value);
+            }}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
           <Form.Label>Price Of Camp</Form.Label>
           <Form.Control
             placeholder="Price Of Camp"
+            value={price}
+            onChange={(e) => {
+              setPrice(e.target.value);
+            }}
             aria-label="Username"
             type="number"
             aria-describedby="basic-addon1"
           />
           <Form.Label>Description</Form.Label>
           <Form.Control
-            placeholder="Price Of Camp"
+            placeholder="Enter some details"
+            value={desription}
+            onChange={(e) => {
+              setDescrition(e.target.value);
+            }}
             aria-label="Username"
             type="textarea"
             aria-describedby="basic-addon1"
@@ -251,7 +489,7 @@ const AddModal = (props) => {
               width: "100%",
               fontWeight: "bold",
             }}
-            onClick={props.onHide}
+            onClick={addEvent}
           >
             Add Event
           </Button>
@@ -260,7 +498,7 @@ const AddModal = (props) => {
     );
   }
 
-  if(user){
+  if (user) {
     return (
       <Modal
         {...props}
@@ -281,6 +519,13 @@ const AddModal = (props) => {
             Add New User
           </Modal.Title>
         </Modal.Header>
+        <Modal.Body>
+          <img
+            src={ImageUrl}
+            style={{ width: "50%", height: "200px", marginLeft: "25%" }}
+            alt="Preview of entered url"
+          />
+        </Modal.Body>
         <Modal.Body
           style={{
             background: "#f9f9f9",
@@ -291,18 +536,30 @@ const AddModal = (props) => {
           <Form.Label>Image Url</Form.Label>
           <Form.Control
             placeholder="Image Url"
+            value={ImageUrl}
+            onChange={(e) => {
+              setImageUrl(e.target.value);
+            }}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
           <Form.Label>Name Of User</Form.Label>
           <Form.Control
             placeholder="Enter Username"
+            value={name}
+            onChange={(e) => {
+              SetName(e.target.value);
+            }}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
           <Form.Label>Enter E-mail</Form.Label>
           <Form.Control
             placeholder="Enter E-mail "
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
             aria-label="Username"
             type="email"
             aria-describedby="basic-addon1"
@@ -310,15 +567,26 @@ const AddModal = (props) => {
           <Form.Label>Enter Password</Form.Label>
           <Form.Control
             placeholder="Enter Password"
+            value={pass}
+            onChange={(e) => {
+              setPass(e.target.value);
+            }}
             aria-label="Username"
             type="password"
             aria-describedby="basic-addon1"
           />
-          <Form.Label>Description</Form.Label>
-          <Form.Select aria-label="Default select example">
-      <option value="Guest">Guest</option>
-      <option value="Admin">Admin</option>
-    </Form.Select>
+          <Form.Label>Role</Form.Label>
+          <Form.Select
+            value={role}
+            onChange={(e) => {
+              setRole(e.target.value);
+            }}
+            aria-label="Default select example"
+          >
+            <option value="">Select from below</option>
+            <option value="Guest">Guest</option>
+            <option value="Admin">Admin</option>
+          </Form.Select>
         </Modal.Body>
         <Modal.Footer
           style={{ background: "#f9f9f9", color: "#fff", fontWeight: "bold" }}
@@ -331,7 +599,7 @@ const AddModal = (props) => {
               width: "100%",
               fontWeight: "bold",
             }}
-            onClick={props.onHide}
+            onClick={addUser}
           >
             Add User
           </Button>

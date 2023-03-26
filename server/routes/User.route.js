@@ -127,7 +127,7 @@ userRouter.post("/googlelogin", async (req, res) => {
   }
 });
 
-userRouter.use(auth);
+// userRouter.use(auth);
 
 userRouter.post("/add", async (req, res) => {
   const data = req.body;

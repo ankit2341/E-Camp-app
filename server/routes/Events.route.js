@@ -23,7 +23,7 @@ eventsRouter.get("/:event_id", async (req, res) => {
   }
 });
 
-eventsRouter.use(auth);
+// eventsRouter.use(auth);
 
 eventsRouter.post("/", async (req, res) => {
   const body = req.body;

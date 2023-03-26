@@ -254,7 +254,7 @@ const LoginForm = (props) => {
           </div>
         </Modal.Body>
       </Modal>
-      <ToastContainer style={{zIndex:"11111"}} theme="colored" />
+      <ToastContainer autoClose="1500" style={{zIndex:"111111"}} theme="colored" />
     </>
   );
 };
