@@ -20,3 +20,71 @@
     margin: auto;
     border: 1px solid;
 }
+.card_size{
+    width: 50%;
+    margin: auto;
+}
+
+@media screen and (max-width:1000px) {
+    .edit_form_main{
+        width: 100%;
+        height: 93vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        background:#fff;
+        /* flex-direction: column; */
+    }
+    .edit_form{
+        width: 45%;
+        height: auto;
+        padding: 20px 20px;
+        background: #f9f9f9;
+        border: none;
+        margin: auto;
+        border: 1px solid;
+    }
+    .card_size{
+        width: 90%;
+        margin: auto;
+    }
+}
+@media screen and (max-width:500px) {
+    .edit_form_main{
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        background:#fff;
+        flex-direction: column;
+        padding-top: 40px;
+    } 
+    .edit_form:nth-child(1){
+        width: 95%;
+        height: auto;
+        padding: 20px 20px;
+        background: #f9f9f9;
+        border: none;
+        margin: auto;
+    }
+    input{
+        width: 100%;
+        height: 20px;
+    }
+    label{
+        margin-top: 20px;
+    }
+    .edit_form:nth-child(2){
+        width: 95%;
+        height: 600px;
+        padding: 20px 20px;
+        background: #f9f9f9;
+        border: none;
+        margin: auto;
+    }
+    .card_size{
+        width: 95%;
+        margin: auto;
+    }
+}

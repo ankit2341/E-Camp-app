@@ -82,7 +82,6 @@ const Home = () => {
   const handleScroll = () => {
 
     const scrool = window.scrollY;
-    console.log(scrool)
     if(scrool>150){
        setActive(true)
     }

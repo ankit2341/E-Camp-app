@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import "../Styles/editAdmin.css";
 import Card from "react-bootstrap/Card";
 import { toast } from "react-toastify";
+import Footer from "../Components/Footer";
 
 const EditDataAdmin = () => {
   const { id, type } = useParams();
@@ -362,7 +363,7 @@ const EditDataAdmin = () => {
             <h4 style={{ marginBottom: "20px", textAlign: "center" }}>
               Preview of entered data changes made in form reflect here.
             </h4>
-            <div style={{ width: "50%", margin: "auto" }} key={tobeUpdated._id}>
+            <div className="card_size" key={tobeUpdated._id}>
               <Card
                 style={{
                   width: "100%",
@@ -399,6 +400,7 @@ const EditDataAdmin = () => {
             </div>
           </div>
         </div>
+        <Footer/>
       </>
     );
   }
@@ -497,7 +499,7 @@ const EditDataAdmin = () => {
             <h4 style={{ marginBottom: "20px", textAlign: "center" }}>
               Preview of entered data changes made in form reflect here.
             </h4>
-            <div style={{ width: "50%", margin: "auto" }} key={tobeUpdated._id}>
+            <div className="card_size" key={tobeUpdated._id}>
               <Card
                 style={{
                   width: "100%",
@@ -534,6 +536,7 @@ const EditDataAdmin = () => {
             </div>
           </div>
         </div>
+        <Footer/>
       </>
     );
   }
@@ -650,7 +653,7 @@ const EditDataAdmin = () => {
           <h4 style={{ marginBottom: "20px", textAlign: "center" }}>
             Preview of entered data changes made in form reflect here.
           </h4>
-          <div style={{ width: "50%", margin: "auto" }} key={tobeUpdated._id}>
+          <div className="card_size" key={tobeUpdated._id}>
             <Card
               style={{
                 width: "100%",
@@ -686,6 +689,7 @@ const EditDataAdmin = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };
