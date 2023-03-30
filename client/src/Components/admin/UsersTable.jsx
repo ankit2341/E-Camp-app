@@ -1,5 +1,6 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
 import AddModal from "./AddModal";
@@ -7,6 +8,7 @@ import AddModal from "./AddModal";
 const UsersTable = ({ data }) => {
   const token = "";
   const [modalShow, setModalShow] = React.useState(false);
+  const navigate=useNavigate();
 
   const handleDelete = (id) => {
     swal({
@@ -76,6 +78,7 @@ const UsersTable = ({ data }) => {
             <th>Username</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -96,9 +99,17 @@ const UsersTable = ({ data }) => {
                 <td>{el.role}</td>
                 <td
                   onClick={() => {
+                    navigate(`/admin/edit/${el._id}/user`)
+                  }}
+                  style={{ background: "yellow", color: "#000",cursor:"pointer" }}
+                >
+                  Edit
+                </td>
+                <td
+                  onClick={() => {
                     handleDelete(el._id);
                   }}
-                  style={{ background: "red", color: "#fff" }}
+                  style={{ background: "red", color: "#fff",cursor:"pointer" }}
                 >
                   Delete
                 </td>

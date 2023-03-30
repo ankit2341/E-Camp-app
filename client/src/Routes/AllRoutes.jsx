@@ -3,6 +3,7 @@ import { Routes,Route } from 'react-router-dom'
 import Admin from '../Pages/Admin'
 import Blogs from '../Pages/Blogs'
 import CampDetails from '../Pages/CampDetails'
+import EditDataAdmin from '../Pages/EditDataAdmin'
 import Events from '../Pages/Events'
 import Explore from '../Pages/Explore'
 import ExploreDiscover from '../Pages/ExploreDiscover'
@@ -21,6 +22,7 @@ const AllRoutes = () => {
         <Route path='/events' element={<Events/>}></Route>
         <Route path='/blogs' element={<Blogs/>}></Route>
         <Route path='/admin' element={<Admin/>}></Route>
+        <Route path='/admin/edit/:id/:type' element={<EditDataAdmin/>}></Route>
         <Route path='*' element={<PageNotFound/>}></Route>
     </Routes>
   )

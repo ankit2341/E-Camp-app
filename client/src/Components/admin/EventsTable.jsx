@@ -1,5 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import swal from "sweetalert";
 import AddModal from './AddModal';
@@ -7,10 +8,7 @@ import AddModal from './AddModal';
 const Eventstable = ({data}) => {
     const token="";
     const [modalShow, setModalShow] = React.useState(false);
-
-    const handleEdit=(id)=>{
-
-    }
+    const navigate=useNavigate();
 
     const handleDelete=(id)=>{
         swal({
@@ -76,8 +74,15 @@ const Eventstable = ({data}) => {
                 <td>{el.location}</td>
                 <td>{el.Bookings_price__YVqxb}</td>
                 <td>{el.description}</td>
-                <td onClick={()=>{handleEdit(el._id)}} style={{background:"yellow",color:"#000"}}>Edit</td>
-                <td onClick={()=>{handleDelete(el._id)}} style={{background:"red",color:"#fff"}}>Delete</td>
+                <td
+                  onClick={() => {
+                    navigate(`/admin/edit/${el._id}/event`)
+                  }}
+                  style={{ background: "yellow", color: "#000",cursor:"pointer" }}
+                >
+                  Edit
+                </td>
+                <td onClick={()=>{handleDelete(el._id)}} style={{background:"red",color:"#fff",cursor:"pointer"}}>Delete</td>
               </tr>
             )
         })}

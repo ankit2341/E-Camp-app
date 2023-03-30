@@ -162,6 +162,16 @@ userRouter.delete("/:id", async (req, res) => {
   }
 });
 
+userRouter.get("/:id",async(req,res)=>{
+  const id=req.params.id;
+  try {
+    const users = await UserModel.find({_id:id});
+    res.status(200).send(users);
+  } catch (err) {
+    res.status(404).send({ msg: "404 error" });
+  }
+})
+
 userRouter.get("/checkrole/:id", async (req, res) => {
   const id = req.params.id;
   try {
