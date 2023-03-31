@@ -29,7 +29,7 @@ const BookingsTable = ({data}) => {
                 <td>{el.username}</td>
                 <td>{el.booking_name}</td>
                 <td>{el.booking_location}</td>
-                <td>{el.booking_status?"Done":"Pending"}</td>
+                <td>{el.payment_status?"Done":"Pending"}</td>
                 <td>{el.booking_members.length}</td>
                 <td><ol>{el.booking_members.map((member)=>{
                     return <li key={member._id}>{member.name}, {member.age}</li> 

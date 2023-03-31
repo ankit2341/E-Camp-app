@@ -117,13 +117,6 @@ const SubNavbar = () => {
                 ) : (
                   <Link
                     onClick={handleLogout}
-                    style={{
-                      width: "10%",
-                      overflowX: "hidden",
-                      background: "#fff",
-                      color: "#222",
-                      borderRadius: "20px",
-                    }}
                   >
                     <img
                       style={{
