@@ -5,15 +5,19 @@ import "../Styles/Discover.css";
 import Footer from "../Components/Footer";
 import { SubNavbar } from "../Components/SubNavbar";
 import Spinner from "react-bootstrap/Spinner";
+import Button from "react-bootstrap/esm/Button";
+import FilterComponent from "../Components/FilterComponent";
 
 const Explore = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const naviagate = useNavigate();
   const [page, setPage] = useState(1);
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
 
   const handleNavigate = (id) => {
-    naviagate(`/prod/${id}`)
+    naviagate(`/prod/${id}`);
   };
 
   useEffect(() => {
@@ -68,9 +72,25 @@ const Explore = () => {
     <>
       <SubNavbar />
       <div style={{ width: "100%", height: "70px" }}></div>
-        <div className="results_for_title">
-          <h2>Explore your camping journey.</h2>
-        </div>
+      <div className="results_for_title">
+        <h2>Explore your camping journey.</h2>
+        <Button
+          style={{ border: "1px solid lightgray" }}
+          variant="light"
+          onClick={handleShow}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#2b1055"
+            width="20"
+            height="20"
+            viewBox="0 0 512 512"
+          >
+            <path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
+          </svg>{" "}
+          Filters
+        </Button>
+      </div>
       {list.length > 0 ? (
         <div className="parent_grid_discover">
           <div className="grid_discover_discover">
@@ -154,8 +174,9 @@ const Explore = () => {
         )}
       </div>
       <Footer />
-      </>
-  )
-}
+      <FilterComponent show={show} onHide={() => setShow(false)} />
+    </>
+  );
+};
 
-export default Explore
+export default Explore;
