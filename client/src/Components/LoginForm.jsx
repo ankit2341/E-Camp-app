@@ -3,12 +3,14 @@ import "../Styles/login.css";
 import Modal from "react-bootstrap/Modal";
 import { GoogleLogin } from "@react-oauth/google";
 import { ToastContainer, toast } from "react-toastify";
-// toast.configure();
+import { useDispatch } from "react-redux";
+import { LoginSuccess } from "../Provider/actions";
 
 const LoginForm = (props) => {
   const [username, setUIser] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setpass] = useState("");
+  const dispatch = useDispatch();
 
   const handleSignup = () => {
     document.getElementById("login-toggle").style.backgroundColor = "#fff";
@@ -110,6 +112,7 @@ const LoginForm = (props) => {
             setUIser("");
             setEmail("");
             setpass("");
+            dispatch(LoginSuccess(res));
             props.onHide();
           } else if (res.msg === "newuser") {
             toast.error("Not Registered Yet");
@@ -198,12 +201,13 @@ const LoginForm = (props) => {
                         return res.json();
                       })
                       .then((res) => {
-                        console.log(res);
+                        dispatch(LoginSuccess(res));
+                        toast.success(`Welcome ${res.username}`);
+                        props.onHide();
                       });
                   }}
                   onError={() => {
-                    console.log("Login Failed");
-                    alert("login failed");
+                    toast.error("Login failed");
                   }}
                 />
                 ;
@@ -254,7 +258,11 @@ const LoginForm = (props) => {
           </div>
         </Modal.Body>
       </Modal>
-      <ToastContainer autoClose="1500" style={{zIndex:"111111"}} theme="colored" />
+      <ToastContainer
+        autoClose="1500"
+        style={{ zIndex: "111111" }}
+        theme="colored"
+      />
     </>
   );
 };

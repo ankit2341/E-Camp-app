@@ -127,8 +127,6 @@ userRouter.post("/googlelogin", async (req, res) => {
   }
 });
 
-// userRouter.use(auth);
-
 userRouter.post("/add", async (req, res) => {
   const data = req.body;
   try {
@@ -162,15 +160,17 @@ userRouter.delete("/:id", async (req, res) => {
   }
 });
 
-userRouter.get("/:id",async(req,res)=>{
-  const id=req.params.id;
+userRouter.get("/:id", async (req, res) => {
+  const id = req.params.id;
   try {
-    const users = await UserModel.find({_id:id});
+    const users = await UserModel.find({ _id: id });
     res.status(200).send(users);
   } catch (err) {
     res.status(404).send({ msg: "404 error" });
   }
-})
+});
+
+userRouter.use(auth);
 
 userRouter.get("/checkrole/:id", async (req, res) => {
   const id = req.params.id;
