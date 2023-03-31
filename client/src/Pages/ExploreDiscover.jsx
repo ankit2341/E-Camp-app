@@ -14,7 +14,7 @@ const ExploreDiscover = () => {
   const [page, setPage] = useState(1);
 
   const handleNavigate = (id) => {
-    naviagate(`/${id}`)
+    naviagate(`/prod/${id}`)
   };
 
   useEffect(() => {

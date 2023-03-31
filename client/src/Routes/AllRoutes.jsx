@@ -22,7 +22,7 @@ const AllRoutes = () => {
         path="/explore/type/:discover"
         element={<ExploreDiscover />}
       ></Route>
-      <Route path="/:prod_id" element={<CampDetails />}></Route>
+      <Route path="prod/:prod_id" element={<CampDetails />}></Route>
       <Route path="/events" element={<Events />}></Route>
       <Route path="/blogs" element={<Blogs />}></Route>
       <Route
