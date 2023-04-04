@@ -18,8 +18,8 @@
   width: 50%;
   height: 100%;
 }
-.details_page .details_page_subdiv:nth-child(2){
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+.details_page .details_page_subdiv:nth-child(2) {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .carousel_media_query {
   width: 100%;
@@ -44,25 +44,12 @@
   justify-content: space-evenly;
 }
 .quantity button {
-  width: 30%;
+  width: 100%;
   background: lightgray;
   height: 50px;
   font-weight: normal;
   font-size: 25px;
   transition: 1000ms;
-}
-.quantity button:hover {
-  width: 35%;
-  background: #7597de;
-  color: #2b1055;
-  transition: 1000ms;
-  font-weight: bolder;
-  font-size: 25px;
-  height: 50px;
-}
-.quantity button:nth-child(2) {
-  width: 30%;
-  background: #fff;
 }
 .book_now_btn {
   width: 35%;
@@ -205,25 +192,12 @@
     justify-content: space-evenly;
   }
   .quantity button {
-    width: 30%;
+    width: 100%;
     background: lightgray;
     height: 50px;
     font-weight: normal;
-    font-size: 25px;
+    font-size: 12px;
     transition: 1000ms;
-  }
-  .quantity button:hover {
-    width: 35%;
-    background: #7597de;
-    color: #2b1055;
-    transition: 1000ms;
-    font-weight: bolder;
-    font-size: 25px;
-    height: 50px;
-  }
-  .quantity button:nth-child(2) {
-    width: 30%;
-    background: #fff;
   }
   .book_now_btn {
     width: 45%;
