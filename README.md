@@ -65,7 +65,7 @@ deployed link for demo:- https://ecamp.vercel.app/
 
 ## Status
 
-This project is yet to be completed. 
+This project is completed. 
 ## Final Words
 
 Thank you for staying with me up to this point. Suggestions and feedbacks are always welcomed.😃
