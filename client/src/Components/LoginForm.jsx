@@ -5,12 +5,14 @@ import { GoogleLogin } from "@react-oauth/google";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { LoginSuccess } from "../Provider/actions";
+import Spinner from "react-bootstrap/esm/Spinner";
 
 const LoginForm = (props) => {
   const [username, setUIser] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setpass] = useState("");
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = () => {
     document.getElementById("login-toggle").style.backgroundColor = "#fff";
@@ -22,8 +24,10 @@ const LoginForm = (props) => {
   };
 
   const signupFunction = () => {
+    setLoading(true);
     if (email === "" || pass === "" || username === "") {
       toast.warn("Please fill all fields !");
+      setLoading(false);
     } else {
       let payload = {
         username: username,
@@ -56,6 +60,7 @@ const LoginForm = (props) => {
             setUIser("");
             setEmail("");
             setpass("");
+            setLoading(false);
           } else if (res.msg === "registered") {
             toast.success("Registeration success");
             document.getElementById("login-toggle").style.backgroundColor =
@@ -69,11 +74,13 @@ const LoginForm = (props) => {
             setUIser("");
             setEmail("");
             setpass("");
+            setLoading(false);
           } else {
             toast.error("Registration failed try after some time");
             setUIser("");
             setEmail("");
             setpass("");
+            setLoading(false);
           }
         });
     }
@@ -89,6 +96,7 @@ const LoginForm = (props) => {
   };
 
   const loginFunction = () => {
+    setLoading(true);
     if (email === "" || pass === "") {
       toast.warn("Please fill all fields !");
     } else {
@@ -113,6 +121,7 @@ const LoginForm = (props) => {
             setEmail("");
             setpass("");
             dispatch(LoginSuccess(res));
+            setLoading(false);
             props.onHide();
           } else if (res.msg === "newuser") {
             toast.error("Not Registered Yet");
@@ -127,11 +136,13 @@ const LoginForm = (props) => {
             setUIser("");
             setEmail("");
             setpass("");
+            setLoading(false);
           } else {
             toast.error("Wrong Creadentials or New User");
             setUIser("");
             setEmail("");
             setpass("");
+            setLoading(false);
           }
         });
     }
@@ -178,13 +189,19 @@ const LoginForm = (props) => {
                   }}
                   placeholder="Enter password"
                 />
-                <button
-                  type="button"
-                  onClick={loginFunction}
-                  className="btn login"
-                >
-                  login
-                </button>
+                {loading ? (
+                  <button type="button" disabled className="btn login">
+                    <Spinner variant="light" />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={loginFunction}
+                    className="btn login"
+                  >
+                    login
+                  </button>
+                )}
                 <hr />
                 <GoogleLogin
                   onSuccess={(credentialResponse) => {
@@ -241,13 +258,19 @@ const LoginForm = (props) => {
                     setpass(e.target.value);
                   }}
                 />
-                <button
-                  type="button"
-                  className="btn signup"
-                  onClick={signupFunction}
-                >
-                  create account
-                </button>
+                {loading ? (
+                  <button type="button" disabled className="btn login">
+                    <Spinner variant="light" />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn signup"
+                    onClick={signupFunction}
+                  >
+                    create account
+                  </button>
+                )}
                 <p>
                   Clicking <strong>create account</strong> means that you are
                   agree to our terms of services.

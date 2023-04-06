@@ -7,7 +7,7 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: purple;
+  background: #2b1055;
   cursor: pointer;
   position: fixed;
   bottom: 20px;
@@ -65,13 +65,14 @@
   background: #fff;
   border-radius: 5px;
   padding-left: 10px;
-  border: 1px solid purple;
+  border: 1px solid #2b1055;
   padding-right: 5px;
+  padding-bottom: 10px;
 }
 .query_btn {
   padding: 10px 10px;
   border-radius: 5px;
-  background-color: purple;
+  background-color: #2b1055;
   color: aliceblue;
   margin-right: 10px;
   border: none;
@@ -84,7 +85,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: purple;
+  background: #2b1055;
   border-radius: 10px;
 }
 
@@ -99,7 +100,7 @@
   height: auto;
   border-radius: 5px;
   background: #fff;
-  border: 1px solid purple;
+  border: 1px solid #2b1055;
   margin-top: 10px;
 }
 @media screen and (max-width: 1000px) {
@@ -150,7 +151,7 @@
     background: #fff;
     border-radius: 5px;
     padding-left: 10px;
-    border: 1px solid purple;
+    border: 1px solid #2b1055;
     padding-right: 5px;
   }
   @keyframes openbot {
@@ -167,7 +168,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: purple;
+    background: #2b1055;
     cursor: pointer;
     position: fixed;
     bottom: 60px;

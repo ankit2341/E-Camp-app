@@ -209,11 +209,29 @@ const CampDetails = () => {
         style={{ zIndex: "11111" }}
       >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+          <Offcanvas.Title style={{ fontWeight: "bold" }}>
+            {data[0].Bookings_name__1IKPG}
+          </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
+          <p>Location :- {data[0].location}</p>
+          <p style={{ fontWeight: "bold" }}>
+            Rs. {data[0].Bookings_price__YVqxb} {data[0].Bookings_person__3ao1H}
+          </p>
+          <h6 style={{ fontWeight: "bold" }}> Description</h6>
+          <p>
+            You could start off with purchasing some tents to provide your guest
+            while they camp at your land however there is also a growing trend
+            of BYOT (Bring your own tent). Ground tents can be purchased at
+            decathlon or Coleman fairly easily these days. Equip your campsite
+            with a few 3-man tents and a couple of family size tents so that it
+            can suit a variety of campers. A cabin in the woods, a tiny home or
+            a treehouse always piques the interest of the reluctant camper who
+            is looking for a bit more comfort. Build a platform made of wood or
+            stone to elevate from the ground so that it gives a feeling of
+            safety. Though there’s a bunch of campers who love pitching their
+            tents onto the ground to get some love from mother earth.
+          </p>
         </Offcanvas.Body>
       </Offcanvas>
       <Offcanvas

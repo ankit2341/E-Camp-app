@@ -112,9 +112,6 @@ const Admin = () => {
         <a href="#bookings_table" onClick={closeNav}>
           Bookings data
         </a>
-        <a href="#statistics" onClick={closeNav}>
-          Statistics
-        </a>
       </div>
       <div className="admin_panel_main">
         <div className="admin_panel_main_subdiv">
