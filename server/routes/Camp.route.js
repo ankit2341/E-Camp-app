@@ -115,19 +115,9 @@ campRouter.get("/state/nods", async (req, res) => {
       "Puducherry",
     ];
 
-    const camps = await CampModel.find();
+    const camps = await CampModel.distinct("state");
 
-    for (let i = 0; i < camps.length; i++) {
-      if (state.includes(camps[i].state)) {
-        if (alldata.includes(camps[i].state)) {
-          continue;
-        } else {
-          alldata.push(camps[i].state);
-        }
-      }
-    }
-
-    res.status(200).send(alldata);
+    res.status(200).send(camps);
   } catch (err) {
     res.status(404).send({ msg: "error connecting to api" });
   }
@@ -144,7 +134,6 @@ campRouter.get("/prod/:id",async(req,res)=>{
   }
 });
 
-// campRouter.use(auth);
 
 campRouter.post("/", async (req, res) => {
   try {

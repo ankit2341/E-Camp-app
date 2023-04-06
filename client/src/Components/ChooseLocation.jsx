@@ -14,6 +14,9 @@ const ChooseLocation = (props) => {
          }).then((res)=>{
              setLOADING(false)
             setLocationList(res);
+         }).catch((err)=>{
+            setLOADING(false);
+            setLocationList(["Not found"]);
          })
     },[]);
 
