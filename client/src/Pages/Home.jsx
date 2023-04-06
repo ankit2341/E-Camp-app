@@ -265,7 +265,7 @@ const Home = () => {
         {userData === "" ? (
           <button
             className="fixed_under_nav_explore"
-            onClick={() => setModalShow(true)}
+            onClick={() => setModalShowlogin(true)}
           >
             Login
           </button>
