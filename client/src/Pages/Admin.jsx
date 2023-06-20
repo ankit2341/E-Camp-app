@@ -16,10 +16,12 @@ const Admin = () => {
   const [bookings, setBookings] = useState([]);
   const [Statistics, setSTATS] = useState([]);
   const [campsPage, setCampspage] = useState(1);
+  const [bookingsPage,setBookingsPage]=useState(1);
+  const [userspage,setUsersPage]=useState(1);
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}users`)
+    fetch(`${process.env.REACT_APP_API_URL}users?page=${userspage}`)
       .then((res) => {
         return res.json();
       })
@@ -29,7 +31,7 @@ const Admin = () => {
       .catch((err) => {
         setuser([]);
       });
-  }, []);
+  }, [userspage]);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}events`)
@@ -44,18 +46,18 @@ const Admin = () => {
       });
   }, []);
 
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}bookings`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setBookings(res);
-      })
-      .catch((err) => {
-        setBookings([]);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch(`${process.env.REACT_APP_API_URL}bookings`)
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((res) => {
+  //       setBookings(res);
+  //     })
+  //     .catch((err) => {
+  //       setBookings([]);
+  //     });
+  // }, []);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}camps?page=${campsPage}`)
@@ -69,6 +71,19 @@ const Admin = () => {
         setCamps([]);
       });
   }, [campsPage]);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}bookings?page=${bookingsPage}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setBookings(res);
+      })
+      .catch((err) => {
+        setBookings([]);
+      });
+  }, [bookingsPage]);
 
   function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
@@ -146,6 +161,37 @@ const Admin = () => {
               >
                 <h3 style={{ color: "#000" }}>No data found</h3>
               </div>}
+          </div>
+          <div className="pagination">
+            {userspage > 1 ? (
+              <button
+                className="btn_pagination"
+                onClick={() => {
+                  setUsersPage((page) => page - 1);
+                }}
+              >
+                Prev
+              </button>
+            ) : (
+              <button className="btn_pagination_disabled" disabled>
+                Prev
+              </button>
+            )}
+            <div className="current_page">{userspage}</div>
+            {user.length > 0 ? (
+              <button
+                className="btn_pagination"
+                onClick={() => {
+                  setUsersPage((page) => page + 1);
+                }}
+              >
+                Next
+              </button>
+            ) : (
+              <button className="btn_pagination_disabled" disabled>
+                Next
+              </button>
+            )}
           </div>
           <section
             style={{
@@ -270,6 +316,37 @@ const Admin = () => {
               >
                 <h3 style={{ color: "#000" }}>No data found</h3>
               </div>
+            )}
+          </div>
+          <div className="pagination">
+            {bookingsPage > 1 ? (
+              <button
+                className="btn_pagination"
+                onClick={() => {
+                  setBookingsPage((page) => page - 1);
+                }}
+              >
+                Prev
+              </button>
+            ) : (
+              <button className="btn_pagination_disabled" disabled>
+                Prev
+              </button>
+            )}
+            <div className="current_page">{bookingsPage}</div>
+            {bookings.length > 0 ? (
+              <button
+                className="btn_pagination"
+                onClick={() => {
+                  setBookingsPage((page) => page + 1);
+                }}
+              >
+                Next
+              </button>
+            ) : (
+              <button className="btn_pagination_disabled" disabled>
+                Next
+              </button>
             )}
           </div>
         </div>

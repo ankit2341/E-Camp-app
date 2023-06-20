@@ -27,7 +27,7 @@ const Explore = () => {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setList(res);
         window.scrollTo({
           top: "0",

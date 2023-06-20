@@ -85,7 +85,7 @@ const FilterComponent = (props) => {
             </h4>
             {discoverData.map((el) => {
               return (
-                <Form.Check
+                <Form.Check key={el.title}
                   type="radio"
                   value={el.title}
                   radioGroup="group1"
@@ -112,7 +112,7 @@ const FilterComponent = (props) => {
             {locationList.length > 0 ? (
               locationList.map((el) => {
                 return (
-                  <Form.Check
+                  <Form.Check key={el}
                     type="radio"
                     radioGroup="group1"
                     value={el}

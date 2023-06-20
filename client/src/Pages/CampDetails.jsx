@@ -37,6 +37,7 @@ const CampDetails = () => {
       })
       .then((res) => {
         setData(res);
+        // console.log(res)
         setimages([
           { src: res[0].img },
           {
@@ -86,7 +87,7 @@ const CampDetails = () => {
           },
         ],
       };
-      console.log(payload);
+      // console.log(payload);
       fetch(`${process.env.REACT_APP_API_URL}bookings`, {
         method: "POST",
         headers: {

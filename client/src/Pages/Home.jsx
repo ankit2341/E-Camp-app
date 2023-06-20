@@ -222,7 +222,7 @@ const Home = () => {
           {eventsdata.map((el) => {
             return (
               <div className="card_discover">
-                <Card style={{ width: "100%", height: "100%" }}>
+                <Card onClick={()=>{navigate("/events")}} style={{ width: "100%", height: "100%" }}>
                   <Card.Img variant="top" src={el.img} alt={el.title} />
                   <Card.Body>
                     <Card.Title
